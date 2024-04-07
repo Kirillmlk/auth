@@ -1,3 +1,9 @@
+<?php
+
+require_once __DIR__ . '/src/helpers.php';
+//$_SESSION['validation'] = [];
+?>
+
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
@@ -8,7 +14,7 @@
 </head>
 <body>
 
-<form class="card">
+<form class="card" action="src/actions/register.php" method="post" enctype="multipart/form-data">
     <h2>Регистрация</h2>
 
     <label for="name">
@@ -18,9 +24,12 @@
             id="name"
             name="name"
             placeholder="Иванов Иван"
-            aria-invalid="true"
-            required
+            <?php validationErrorAtter('name'); ?>
         >
+        <?php if (hasValidationError('name')): ?>
+            <small><?php validationErrorMessage('name'); ?></small>
+        <?php endif; ?>
+
     </label>
 
     <label for="email">
@@ -30,7 +39,7 @@
             id="email"
             name="email"
             placeholder="ivan@areaweb.su"
-            required
+
         >
     </label>
 
@@ -50,7 +59,7 @@
                 id="password"
                 name="password"
                 placeholder="******"
-                required
+
             >
         </label>
 
@@ -61,7 +70,7 @@
                 id="password_confirmation"
                 name="password_confirmation"
                 placeholder="******"
-                required
+
             >
         </label>
     </div>
@@ -84,7 +93,7 @@
     >Продолжить</button>
 </form>
 
-<p>У меня уже есть <a href="/login.html">аккаунт</a></p>
+<p>У меня уже есть <a href="/index.php">аккаунт</a></p>
 
 <script src="assets/app.js"></script>
 </body>

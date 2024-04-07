@@ -11,8 +11,8 @@
 <form class="card">
     <h2>Вход</h2>
 
-    <div class="notice error">Какая-то ошибка</div>
-    <div class="notice success">Какое-то сообщение</div>
+<!--    <div class="notice error">Какая-то ошибка</div>-->
+<!--    <div class="notice success">Какое-то сообщение</div>-->
 
     <label for="name">
         Имя
@@ -43,7 +43,7 @@
     >Продолжить</button>
 </form>
 
-<p>У меня еще нет <a href="/register.html">аккаунта</a></p>
+<p>У меня еще нет <a href="/register.php">аккаунта</a></p>
 
 <script src="assets/app.js"></script>
 </body>
