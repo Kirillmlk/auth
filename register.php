@@ -53,7 +53,11 @@ require_once __DIR__ . '/src/helpers.php';
             type="file"
             id="avatar"
             name="avatar"
+            <?php validationErrorAtter('avatar'); ?>
         >
+        <?php if (hasValidationError('avatar')): ?>
+            <small><?php validationErrorMessage('avatar'); ?></small>
+        <?php endif; ?>
     </label>
 
     <div class="grid">

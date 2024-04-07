@@ -47,6 +47,26 @@ function old(string $key)
     return $value;
 }
 
+function uploadFile(array $file, string $prefix = ''): string
+{
+    $upLoadPath = __DIR__ . '/../uploads';
+
+    if (!is_dir($upLoadPath)) {
+        mkdir($upLoadPath, 0777, true);
+    }
+
+    $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $fileName = $prefix . '_' . time() . ".$ext";
+
+
+
+    if (!move_uploaded_file($file['tmp_name'], "$upLoadPath/$fileName")) {
+        die('Ошибка при загрузке файла');
+    }
+
+    return "uploads/$fileName";
+}
+
 //function clearOldValues(string $key): void
 //{
 //    $_SESSION['old'] = [];
