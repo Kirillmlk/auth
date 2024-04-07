@@ -6,12 +6,8 @@ require_once __DIR__ . '/src/helpers.php';
 
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <title>AreaWeb - авторизация и регистрация</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="assets/app.css">
-</head>
+<?php include_once __DIR__ . '/components/head.php'?>
+
 <body>
 
 <form class="card" action="src/actions/register.php" method="post" enctype="multipart/form-data">
@@ -25,7 +21,7 @@ require_once __DIR__ . '/src/helpers.php';
             name="name"
             placeholder="Иванов Иван"
             value="<?php echo old('name') ?>"
-            <?php validationErrorAtter('name'); ?>
+            <?php echo validationErrorAtter('name'); ?>
         >
         <?php if (hasValidationError('name')): ?>
             <small><?php validationErrorMessage('name'); ?></small>
@@ -41,10 +37,10 @@ require_once __DIR__ . '/src/helpers.php';
             name="email"
             placeholder="ivan@areaweb.su"
             value="<?php echo old('name')?>"
-            <?php validationErrorAtter('email'); ?>
+            <?php echo validationErrorAtter('email'); ?>
         >
         <?php if (hasValidationError('email')): ?>
-            <small><?php validationErrorMessage('email'); ?></small>
+            <small><?php echo validationErrorMessage('email'); ?></small>
         <?php endif; ?>
     </label>
 
@@ -56,7 +52,7 @@ require_once __DIR__ . '/src/helpers.php';
             <?php validationErrorAtter('avatar'); ?>
         >
         <?php if (hasValidationError('avatar')): ?>
-            <small><?php validationErrorMessage('avatar'); ?></small>
+            <small><?php echo validationErrorMessage('avatar'); ?></small>
         <?php endif; ?>
     </label>
 
@@ -68,10 +64,10 @@ require_once __DIR__ . '/src/helpers.php';
                 id="password"
                 name="password"
                 placeholder="******"
-                <?php validationErrorAtter('password'); ?>
+                <?php echo validationErrorAtter('password'); ?>
             >
             <?php if (hasValidationError('password')): ?>
-                <small><?php validationErrorMessage('password'); ?></small>
+                <small><?php echo validationErrorMessage('password'); ?></small>
             <?php endif; ?>
         </label>
 
@@ -107,8 +103,9 @@ require_once __DIR__ . '/src/helpers.php';
 
 
 
-<p>У меня уже есть <a href="/index.php">аккаунт</a></p>
+<p>У меня уже есть <a href="/">аккаунт</a></p>
 
-<script src="assets/app.js"></script>
+<?php include_once __DIR__ . '/components/scripts.php'?>
+
 </body>
 </html>

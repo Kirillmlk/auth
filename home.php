@@ -1,17 +1,14 @@
 <?php
 require_once __DIR__ . '/src/helpers.php';
 
+checkAuth();
+
 $user = currentUser();
 ?>
 
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <title>AreaWeb - авторизация и регистрация</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="assets/app.css">
-</head>
+<?php include_once __DIR__ . '/components/head.php'?>
 <body>
 
 <div class="card home">
@@ -21,9 +18,11 @@ $user = currentUser();
             alt="<?php echo $user['name'] ?>"
     >
     <h1>Привет, <?php echo $user['name'] ?>!</h1>
-    <a href="#" role="button">Выйти из аккаунта</a>
+    <form action="src/actions/logout.php" method="post">
+        <button role="button">Выйти из аккаунта</button>
+    </form>
 </div>
 
-<script src="assets/app.js"></script>
+<?php include_once __DIR__ . '/components/scripts.php'?>
 </body>
 </html>

@@ -24,16 +24,16 @@ function hasValidationError(string $fieldName):bool
     return isset($_SESSION['validation'][$fieldName]);
 }
 
-function validationErrorAtter(string $fieldName)
+function validationErrorAtter(string $fieldName): string
 {
-    echo isset($_SESSION['validation'][$fieldName]) ? 'aria-invalid="true"' : '';
+    return isset($_SESSION['validation'][$fieldName]) ? 'aria-invalid="true"' : '';
 }
 
 function validationErrorMessage(string $fieldName)
 {
     $message = $_SESSION['validation'][$fieldName] ?? '';
     unset($_SESSION['validation'][$fieldName]);
-    echo $message;
+    return $message;
 }
 
 function addOldValue(string $key, mixed $value)
@@ -117,6 +117,27 @@ function currentUser()
     $stmt = $pdo->prepare("SELECT * FROM users WHERE `id` = :id");
     $stmt->execute(['id' => $userId]);
     return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+
+function logout()
+{
+    unset($_SESSION['user']['id']);
+    redirect('/');
+}
+
+function checkAuth(): void
+{
+    if (!isset($_SESSION['user']['id'])) {
+        redirect('/');
+    }
+}
+
+function checkGuest(): void
+{
+    if (isset($_SESSION['user']['id'])) {
+        redirect('/home.php');
+    }
 }
 //function clearOldValues(string $key): void
 //{
