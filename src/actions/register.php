@@ -25,11 +25,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     addValidationError('email', 'Неверный email');
 }
 
-if (!empty($password)) {
+if (empty($password)) {
     addValidationError('password', 'Пароль пустой');
 }
 
-if ($password ===$passwordConfirmation) {
+if ($password !== $passwordConfirmation) {
     addValidationError('password', 'Пароли не совпадают');
 }
 
@@ -52,7 +52,25 @@ if (!empty($avatar)) {
  $avatarPath = uploadFile($avatar, 'avatar');
 }
 
-var_dump($avatarPath);
+
+$pdo = getPDO();
+
+$query = "INSERT INTO users (name, email, avatar, password) VALUES (:name, :email, :avatar, :password)";
+$params = [
+    'name' => $name,
+    'email' => $email,
+    'avatar' => $avatarPath,
+    'password' => password_hash($password, PASSWORD_DEFAULT)
+];
+$stmt = $pdo->prepare($query);
+
+try {
+    $stmt->execute($params);
+}catch (\Exception $e) {
+    die($e->getMessage());
+}
+
+redirect('/index.php');
 
 
 

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once __DIR__ . '/config.php';
 
 function redirect(string $path)
 {
@@ -65,6 +66,16 @@ function uploadFile(array $file, string $prefix = ''): string
     }
 
     return "uploads/$fileName";
+}
+
+function getPDO(): PDO
+{
+    try {
+        return new \PDO('mysql:host=' . DB_HOST .  ';charset=utf8;dbname=' . DB_NAME, DB_USERNAME, '');
+
+    } catch (\PDOException $e) {
+        die("Connection error: {$e->getMessage()}");
+    }
 }
 
 //function clearOldValues(string $key): void
