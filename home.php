@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/src/helpers.php';
+
+$user = currentUser();
+?>
+
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
@@ -10,11 +16,11 @@
 
 <div class="card home">
     <img
-        class="avatar"
-        src="https://img.gazeta.ru/files3/516/15017516/upload-GettyImages-1166522079-pic_32ratio_900x600-900x600-58937.jpg"
-        alt="{{ name }}"
+            class="avatar"
+            src="<?php echo $user['avatar'] ?>"
+            alt="<?php echo $user['name'] ?>"
     >
-    <h1>Привет, {{ name }}!</h1>
+    <h1>Привет, <?php echo $user['name'] ?>!</h1>
     <a href="#" role="button">Выйти из аккаунта</a>
 </div>
 

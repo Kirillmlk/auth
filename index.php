@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/src/helpers.php';
+?>
+
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
@@ -8,22 +12,28 @@
 </head>
 <body>
 
-<form class="card">
+<form class="card" action="src/actions/login.php" method="post">
     <h2>Вход</h2>
+    <?php if (hasMessage('error')): ?>
+    <div class="notice error"><?php echo getMessage('error')?></div>
+    <?php endif; ?>
 
-<!--    <div class="notice error">Какая-то ошибка</div>-->
 <!--    <div class="notice success">Какое-то сообщение</div>-->
 
-    <label for="name">
+    <label for="email">
         Имя
         <input
             type="text"
-            id="name"
-            name="name"
+            id="email"
+            name="email"
             placeholder="Иванов Иван"
             aria-invalid="true"
-            required
+            value="<?php echo old('email') ?>"
+            <?php validationErrorAtter('email'); ?>
         >
+        <?php if (hasValidationError('email')): ?>
+            <small><?php validationErrorMessage('email'); ?></small>
+        <?php endif; ?>
     </label>
 
     <label for="password">
@@ -33,7 +43,6 @@
             id="password"
             name="password"
             placeholder="******"
-            required
         >
     </label>
 

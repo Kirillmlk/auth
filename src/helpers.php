@@ -68,6 +68,23 @@ function uploadFile(array $file, string $prefix = ''): string
     return "uploads/$fileName";
 }
 
+function setMessage(string $key, string $message): void
+{
+    $_SESSION['message'][$key] = $message;
+}
+
+function hasMessage(string $key): bool
+{
+    return isset($_SESSION['message'][$key]);
+}
+
+function getMessage(string $key): string
+{
+    $message = $_SESSION['message'][$key] ?? '';
+    unset($_SESSION['message'][$key]);
+    return $message;
+}
+
 function getPDO(): PDO
 {
     try {
@@ -78,6 +95,29 @@ function getPDO(): PDO
     }
 }
 
+
+function findUser(string $email): array|bool
+{
+    $pdo = getPDO();
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE `email` = :email");
+    $stmt->execute(['email' => $email]);
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+
+function currentUser()
+{
+    $pdo = getPDO();
+    if (!isset($_SESSION['user'])) {
+        return false;
+    }
+
+    $userId = $_SESSION['user']['id'] ?? null;
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE `id` = :id");
+    $stmt->execute(['id' => $userId]);
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
 //function clearOldValues(string $key): void
 //{
 //    $_SESSION['old'] = [];

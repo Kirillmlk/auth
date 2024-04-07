@@ -11,8 +11,7 @@ $password = $_POST['password'] ?? null;
 $passwordConfirmation = $_POST['password_confirmation'] ?? null;
 $avatar = $_FILES['avatar'] ?? null;
 
-addOldValue('name', $name);
-addOldValue('email', $email);
+
 
 //Валидация
 
@@ -45,6 +44,9 @@ if (!empty($avatar)) {
 }
 
 if (!empty($_SESSION['validation'])) {
+    addOldValue('name', $name);
+    addOldValue('email', $email);
+    
     redirect('/register.php');
 }
 
@@ -71,6 +73,7 @@ try {
 }
 
 redirect('/index.php');
+
 
 
 
