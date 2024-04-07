@@ -24,6 +24,7 @@ require_once __DIR__ . '/src/helpers.php';
             id="name"
             name="name"
             placeholder="Иванов Иван"
+            value="<?php echo old('name') ?>"
             <?php validationErrorAtter('name'); ?>
         >
         <?php if (hasValidationError('name')): ?>
@@ -39,8 +40,12 @@ require_once __DIR__ . '/src/helpers.php';
             id="email"
             name="email"
             placeholder="ivan@areaweb.su"
-
+            value="<?php echo old('name')?>"
+            <?php validationErrorAtter('email'); ?>
         >
+        <?php if (hasValidationError('email')): ?>
+            <small><?php validationErrorMessage('email'); ?></small>
+        <?php endif; ?>
     </label>
 
     <label for="avatar">Изображение профиля
@@ -59,8 +64,11 @@ require_once __DIR__ . '/src/helpers.php';
                 id="password"
                 name="password"
                 placeholder="******"
-
+                <?php validationErrorAtter('password'); ?>
             >
+            <?php if (hasValidationError('password')): ?>
+                <small><?php validationErrorMessage('password'); ?></small>
+            <?php endif; ?>
         </label>
 
         <label for="password_confirmation">
@@ -92,6 +100,8 @@ require_once __DIR__ . '/src/helpers.php';
         disabled
     >Продолжить</button>
 </form>
+
+
 
 <p>У меня уже есть <a href="/index.php">аккаунт</a></p>
 

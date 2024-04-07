@@ -9,13 +9,28 @@ $password = $_POST['password'];
 $passwordConfirmation = $_POST['password_confirmation'];
 
 
+addOldValue('name', $name);
+addOldValue('email', $email);
+
 //Валидация
 
-$_SESSION['validation'] = [];
 
 if (empty($name)) {
-    $_SESSION['validation']['name'] = 'Неверное Имя';
+    addValidationError('name', 'Неверное имя');
 }
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    addValidationError('email', 'Неверный email');
+}
+
+if (!empty($password)) {
+    addValidationError('password', 'Пароль пустой');
+}
+
+if ($password ===$passwordConfirmation) {
+    addValidationError('password', 'Пароли не совпадают');
+}
+
 
 if (!empty($_SESSION['validation'])) {
     redirect('/register.php');
